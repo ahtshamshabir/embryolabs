@@ -47,25 +47,32 @@
 		{
 			element: document.querySelector('#image1'),
 			stickyTill: 0,
+			visible: true,
 		},
 		{
 			element: document.querySelector('#image2'),
 			stickyTill: 20,
+			visible: true,
 		},
 		{
 			element: document.querySelector('#image3'),
 			stickyTill: 40,
+			visible: true,
 		},
 		{
 			element: document.querySelector('#image4'),
 			stickyTill: 60,
+			visible: true,
 		},
 		{
 			element: document.querySelector('#image5'),
 			stickyTill: 80,
+			visible: true,
 		},
 	]
 
+	let windowHeight = window.innerHeight;
+	document.getElementById('index').style.height = (windowHeight * 5) + 'px';
 	function scrollPosition() {
 		var h = document.documentElement,
 			b = document.body,
@@ -75,14 +82,18 @@
 		// document.getElementById('percent').innerText = Math.round(percent);
 		// document.getElementById('progress').innerText = h[st];
 		images.forEach(cur => {
-			if(cur.stickyTill >= percent) {
+			if(percent >= cur.stickyTill && cur.visible) {
+				cur.element.style.position = 'absolute';
 				cur.element.style.top = h[st] + 'px';
+				cur.visible = false;
+			}
+			else if(percent <= cur.stickyTill) {
+				cur.element.style.position = 'fixed';
+				cur.element.style.top = 0 + 'px';
+				cur.visible = true;
 			}
 		});
 	}
-
-	let windowHeight = window.innerHeight;
-	document.getElementById('index').style.height = (windowHeight * 5) + 'px';
 </script>
 </body>
 </html>
